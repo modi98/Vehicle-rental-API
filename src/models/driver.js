@@ -30,9 +30,9 @@ driverSchema.methods = {
   view() {
     return {
       id: this.id,
-      userId: this.userId,
-      username: this.username,
-      location: this.location
+      first_name: this.first_name,
+      last_name: this.last_name,
+      driver_license: this.driver_license
     }
   }
 }
