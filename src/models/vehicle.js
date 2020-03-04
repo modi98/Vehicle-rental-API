@@ -12,6 +12,12 @@ const vehicleSchema = new mongoose.Schema({
   license_plate: {
     type: String,
     required: true
+  },
+  status: {
+    type: String,
+    enum: ['available', 'rented'],
+    required: true,
+    default: 'available'
   }
 }, {
   timestamps: true,
@@ -27,7 +33,8 @@ vehicleSchema.methods = {
       id: this.id,
       model: this.model,
       year: this.year,
-      license_plate: this.license_plate
+      license_plate: this.license_plate,
+      status: this.status
     }
   }
 }

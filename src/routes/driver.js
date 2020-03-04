@@ -3,7 +3,7 @@ const bodymen = require('bodymen');
 const { schema } = require('../models/driver');
 const router = express.Router();
 const { age, first_name, last_name, driver_license } = schema.tree;
-const { getAllDrivers, getDriver, createDriver, updateDriver } = require('../controllers/driver');
+const { getAllDrivers, getDriver, createDriver, updateDriver, assignVehicle, endRental } = require('../controllers/driver');
 
 /**
  * @api {get} /drivers
@@ -17,6 +17,20 @@ router.get('/',
  */
 router.get('/:id',
   getDriver
+);
+
+/**
+ * @api {get} /drivers/:driverId/vehicles/:vehicleId
+ */
+router.get('/:driverId/vehicles/:vehicleId',
+  assignVehicle
+);
+
+/**
+ * @api {get} /drivers/:driverId/endRental
+ */
+router.get('/:driverId/endRental',
+  endRental
 );
 
 /**
@@ -39,6 +53,7 @@ router.post('/',
  * @param {String} driver_license
  */
 router.put('/:id',
+  bodymen.middleware({ age, first_name, last_name, driver_license }),
   updateDriver
 );
 

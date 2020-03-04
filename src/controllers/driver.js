@@ -1,4 +1,5 @@
 const Driver = require('../models/driver');
+const vehicleController = require('../controllers/vehicle');
 
 async function getById (id, res) {
   try {
@@ -6,7 +7,7 @@ async function getById (id, res) {
     if (entity) {
       return entity;
     }
-    res.status(204).json({ message: `There isn't a driver with the id: ${id}` }).end();
+    res.status(404).json({ message: `There isn't a driver with the id: ${id}` }).end();
   } catch (err) {
     res.status(500).json({ message: err.message }).end();
   }
@@ -52,4 +53,36 @@ async function updateDriver (req, res) {
   }
 }
 
-module.exports = { getAllDrivers, getDriver, createDriver, updateDriver }
+async function assignVehicle (req, res) {
+  try {
+    let vehicle = await vehicleController.getById(req.params.vehicleId, res);
+    let driver = await getById(req.params.driverId, res);
+    vehicle.status = 'rented';
+    vehicle = await vehicle.save();
+    driver.vehicle = {
+      id: vehicle._id,
+      model: vehicle.model,
+      year: vehicle.year,
+      startDate: new Date()
+    };
+    res.json(await driver.save());
+  } catch (err) {
+    res.status(500).json({ message: err.message }).end();
+  }
+}
+
+async function endRental (req, res) {
+  try {
+    let driver = await getById(req.params.driverId, res);
+    driver.previous_rentals.push({
+      ...driver.vehicle,
+      endDate: new Date()
+    })
+    driver.vehicle = {};
+    res.json(await driver.save());
+  } catch (err) {
+    res.status(500).json({ message: err.message }).end();
+  }
+}
+
+module.exports = { getAllDrivers, getDriver, createDriver, updateDriver, assignVehicle, endRental }
