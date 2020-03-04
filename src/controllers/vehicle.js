@@ -24,7 +24,7 @@ async function getAvailable (req, res) {
             model: '$model',
             year: '$year'
           },
-          vehicles_available: { $sum: 1 }
+          vehicles_available: { $push: { model: '$model', year: '$year', id: '$_id' } }
         }
       },
       {
