@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const driverRouter = require('./routes/driver');
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ db.once('open', () => console.log('Connected to the database'));
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use('/drivers', driverRouter);
 
 setImmediate(() => {
   app.listen(port, ip, () => {
