@@ -71,8 +71,8 @@ driverSchema.methods = {
       first_name: this.first_name,
       last_name: this.last_name,
       driver_license: this.driver_license,
-      current_rental: this.current_rental,
-      previous_rentals: this.previousRentals,
+      vehicle: this.vehicle,
+      previous_rentals: this.previous_rentals,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

@@ -7,6 +7,7 @@ const { getAllDrivers, getDriver, createDriver, updateDriver, assignVehicle, end
 
 /**
  * @api {get} /drivers
+ * @apiDescription Gets all drivers
  */
 router.get('/',
   getAllDrivers
@@ -14,6 +15,7 @@ router.get('/',
 
 /**
  * @api {get} /drivers/:id
+ * @apiDescription Gets driver by id
  */
 router.get('/:id',
   getDriver
@@ -21,6 +23,7 @@ router.get('/:id',
 
 /**
  * @api {get} /drivers/:driverId/vehicles/:vehicleId
+ * @apiDescription Assigns selected vehicle to driver (starts rent)
  */
 router.get('/:driverId/vehicles/:vehicleId',
   assignVehicle
@@ -28,6 +31,7 @@ router.get('/:driverId/vehicles/:vehicleId',
 
 /**
  * @api {get} /drivers/:driverId/endRental
+ * @apiDescription Removes assigned vehicle to user and adds it to previous rentals
  */
 router.get('/:driverId/endRental',
   endRental
@@ -39,6 +43,7 @@ router.get('/:driverId/endRental',
  * @param {String} first_name
  * @param {String} last_name
  * @param {String} driver_license
+ * @apiDescription Creates new driver
  */
 router.post('/',
   bodymen.middleware({ age, first_name, last_name, driver_license }),
@@ -51,6 +56,7 @@ router.post('/',
  * @param {String} first_name
  * @param {String} last_name
  * @param {String} driver_license
+ * @apiDescription Updates driver by id
  */
 router.put('/:id',
   bodymen.middleware({ age, first_name, last_name, driver_license }),

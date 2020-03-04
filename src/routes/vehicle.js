@@ -7,6 +7,7 @@ const { getAvailable, createVehicle } = require('../controllers/vehicle');
 
 /**
  * @api {get} /vehicles
+ * @apiDescription Gets all vehicles
  */
 router.get('/',
   getAvailable
@@ -17,6 +18,7 @@ router.get('/',
  * @param {String} model
  * @param {String} year
  * @param {String} license_plate
+ * @apiDescription Create new vehicle
  */
 router.post('/',
   bodymen.middleware({ model, year, license_plate }),
