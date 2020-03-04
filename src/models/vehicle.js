@@ -32,4 +32,4 @@ vehicleSchema.methods = {
   }
 }
 
-module.exports = mongoose.model('Driver', vehicleSchema);
+module.exports = mongoose.model('Vehicle', vehicleSchema);
