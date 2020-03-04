@@ -75,7 +75,10 @@ async function endRental (req, res) {
   try {
     let driver = await getById(req.params.driverId, res);
     driver.previous_rentals.push({
-      ...driver.vehicle,
+      _id: driver.vehicle.id,
+      model: driver.vehicle.model,
+      year: driver.vehicle.year,
+      startDate: driver.vehicle.startDate,
       endDate: new Date()
     })
     driver.vehicle = {};
@@ -85,4 +88,13 @@ async function endRental (req, res) {
   }
 }
 
-module.exports = { getAllDrivers, getDriver, createDriver, updateDriver, assignVehicle, endRental }
+async function getPastRentals (req, res) {
+  try {
+    let driver = await getById(req.params.driverId, res);
+    res.json(driver.previous_rentals);
+  } catch (err) {
+    res.status(500).json({ message: err.message }).end();
+  }
+}
+
+module.exports = { getAllDrivers, getDriver, createDriver, updateDriver, assignVehicle, endRental, getPastRentals }

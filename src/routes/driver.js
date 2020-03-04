@@ -3,7 +3,7 @@ const bodymen = require('bodymen');
 const { schema } = require('../models/driver');
 const router = express.Router();
 const { age, first_name, last_name, driver_license } = schema.tree;
-const { getAllDrivers, getDriver, createDriver, updateDriver, assignVehicle, endRental } = require('../controllers/driver');
+const { getAllDrivers, getDriver, createDriver, updateDriver, assignVehicle, endRental, getPastRentals } = require('../controllers/driver');
 
 /**
  * @api {get} /drivers
@@ -35,6 +35,14 @@ router.get('/:driverId/vehicles/:vehicleId',
  */
 router.get('/:driverId/endRental',
   endRental
+);
+
+/**
+ * @api {get} /drivers/:driverId/vehicles
+ * @apiDescription Returns past vehicle rentals from driver
+ */
+router.get('/:driverId/vehicles',
+  getPastRentals
 );
 
 /**
