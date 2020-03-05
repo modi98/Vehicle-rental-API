@@ -26,3 +26,5 @@ setImmediate(() => {
     console.log('Express server listening on http://%s:%d/', ip, port);
   });
 });
+
+module.exports = app;
